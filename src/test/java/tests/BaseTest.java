@@ -8,6 +8,10 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
+import pages.LoginPage;
+import pages.NewAccountPage;
+import steps.AccountStep;
+import steps.LoginStep;
 
 import java.time.Duration;
 import java.util.HashMap;
@@ -16,6 +20,10 @@ import java.util.HashMap;
 public class BaseTest {
 
     WebDriver driver;
+    NewAccountPage newAccountPage;
+    LoginPage loginpage;
+    AccountStep accountStep;
+    LoginStep loginStep;
 
     @Parameters({"browser"})
     @BeforeMethod(alwaysRun = true, description = "Настройка браузера")
@@ -36,7 +44,11 @@ public class BaseTest {
         }
         iTestContext.setAttribute("driver", driver);
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
+        newAccountPage = new NewAccountPage(driver);
+        loginpage = new LoginPage(driver);
+        accountStep= new AccountStep(driver);
+        loginStep = new LoginStep(driver);
     }
 
     @AfterMethod(alwaysRun = true, description = "Закрытие браузера")
