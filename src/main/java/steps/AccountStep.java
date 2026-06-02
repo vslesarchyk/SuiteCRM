@@ -2,6 +2,7 @@ package steps;
 
 import dto.Account;
 import org.openqa.selenium.WebDriver;
+import pages.DetailPage;
 import pages.NewAccountPage;
 
 public class AccountStep {
@@ -14,10 +15,11 @@ public class AccountStep {
         newAccountPage = new NewAccountPage(driver);
     }
 
-    public void createAccount(Account account) {
-        newAccountPage.open()
+    public DetailPage createAccount(Account account) {
+       return newAccountPage.open()
                 .isPageOpened()
                 .createAccount(account)
-                .saveNewAccount();
-    }
+                .saveNewAccount()
+                .isPageOpened();
+           }
 }

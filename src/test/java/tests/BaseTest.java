@@ -20,8 +20,6 @@ import java.util.HashMap;
 public class BaseTest {
 
     WebDriver driver;
-    NewAccountPage newAccountPage;
-    LoginPage loginpage;
     AccountStep accountStep;
     LoginStep loginStep;
 
@@ -45,8 +43,6 @@ public class BaseTest {
         iTestContext.setAttribute("driver", driver);
         driver.manage().window().maximize();
 
-        newAccountPage = new NewAccountPage(driver);
-        loginpage = new LoginPage(driver);
         accountStep= new AccountStep(driver);
         loginStep = new LoginStep(driver);
     }
