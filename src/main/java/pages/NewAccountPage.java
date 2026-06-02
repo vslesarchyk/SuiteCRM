@@ -1,11 +1,13 @@
 package pages;
 
 import dto.Account;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import wrappers.*;
 
+@Log4j2
 public class NewAccountPage extends BasePage {
 
     public NewAccountPage(WebDriver driver) {
@@ -13,6 +15,7 @@ public class NewAccountPage extends BasePage {
     }
 
     public NewAccountPage open() {
+        log.info("Opening New Account Page");
         driver.get("https://demo.suiteondemand.com/index.php?module=Accounts&action=EditView&return_module=Accounts&return_action=DetailView");
         return this;
     }
@@ -25,6 +28,7 @@ public class NewAccountPage extends BasePage {
     }
 
     public NewAccountPage createAccount(Account account) {
+        log.info("Creating account with name '{}'", account.getName());
         new Input(driver, "Name").write (account.getName());
         new Input(driver, "Fax").write (account.getFax());
         new Input(driver, "Office Phone").write (account.getPhone());
@@ -47,9 +51,10 @@ public class NewAccountPage extends BasePage {
         return this;
     }
 
-    public void saveNewAccount() {
+    public DetailPage saveNewAccount() {
         driver.findElement(By.xpath
                         ("//div[@id='EditView_tabs']/following-sibling::div[@class='buttons']/input[@title='Save']"))
                 .click();
+        return new DetailPage(driver);
     }
 }
